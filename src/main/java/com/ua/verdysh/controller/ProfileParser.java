@@ -31,7 +31,7 @@ class ProfileParser {
         return result;
     }
 
-    private void fillProfileFields(WebDriver driver, List<LawyerProfile> profiles) {
+    void fillProfileFields(WebDriver driver, List<LawyerProfile> profiles) {
         for (LawyerProfile profile : profiles) {
             driver.get(profile.getUrl());
 

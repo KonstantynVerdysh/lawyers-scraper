@@ -12,9 +12,4 @@ public class LawyerProfile {
     private String description;
     private String photo;
     private String mail;
-
-    @Override
-    public String toString() {
-        return url + "\n" + fullName + "\n" + jobPosition + "\n" + description + "\n" + photo + "\n" + mail + "\n";
-    }
 }
