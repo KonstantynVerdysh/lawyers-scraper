@@ -18,16 +18,17 @@ class ProfileParser {
     private static final String MAIL_SELECTOR = "//li[contains(@class,'profile')] //li[@itemprop='email'] //a";
 
     Map<String, List<LawyerProfile>> parseProfilesByType(WebDriver driver, String typeSelector, String typeHeadingSelector) {
-        Map<String, List<LawyerProfile>> profilesUrlByType = new HashMap<>();
-        String type = ProfileParserHelper.getTypeHeading(driver, typeHeadingSelector);
+        Map<String, List<LawyerProfile>> result = new HashMap<>();
+        String type = ProfileParserHelper.getText(driver, typeHeadingSelector);
 
         List<String> profilesUrl =  driver.findElements(By.xpath(typeSelector)).stream()
                 .map(v -> v.getAttribute("href"))
                 .collect(Collectors.toList());
+
         List<LawyerProfile> profiles = ProfileParserHelper.createNewProfiles(profilesUrl);
         fillProfileFields(driver, profiles);
-        profilesUrlByType.put(type, profiles);
-        return profilesUrlByType;
+        result.put(type, profiles);
+        return result;
     }
 
     private void fillProfileFields(WebDriver driver, List<LawyerProfile> profiles) {

@@ -29,10 +29,6 @@ public class ProfileParserHelper {
         return StringUtils.substringBetween(stringWithMail, ":", "?");
     }
 
-    public static String getTypeHeading(WebDriver driver, String typeHeadingSelector) {
-        return getText(driver, typeHeadingSelector);
-    }
-
     public static List<LawyerProfile> createNewProfiles(List<String> profilesUrl) {
         return profilesUrl.stream()
                 .map(ProfileParserHelper::setUrlToProfile)
