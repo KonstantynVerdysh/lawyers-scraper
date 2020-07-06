@@ -1,6 +1,6 @@
 package com.ua.verdysh.controller;
 
-import com.ua.verdysh.controller.helpers.ParserHelper;
+import com.ua.verdysh.controller.helpers.ScraperHelper;
 import com.ua.verdysh.model.LawyerProfile;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
@@ -17,7 +17,7 @@ class ProfileParserTest {
 
     @BeforeAll
     static void before() {
-        System.setProperty("webdriver.gecko.driver", "geckodriver.exe");
+        System.setProperty("webdriver.gecko.driver", "geckodriver");
         driver = new FirefoxDriver();
         parser = new ProfileParser();
     }
@@ -25,7 +25,7 @@ class ProfileParserTest {
     @Test
     void fillProfileFields_fillProfileFieldsFromWebsite() {
         driver.get(URL);
-        List<LawyerProfile> profiles = ParserHelper.createNewProfiles(Collections.singletonList(URL));
+        List<LawyerProfile> profiles = ScraperHelper.createNewProfiles(Collections.singletonList(URL));
         parser.fillProfileFields(driver, profiles);
         LawyerProfile profile = profiles.get(0);
 
