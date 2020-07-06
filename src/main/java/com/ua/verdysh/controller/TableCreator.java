@@ -33,8 +33,13 @@ public class TableCreator {
             LawyerProfile profile = profiles.get(count);
             Row row = sheet.createRow(count);
 
-            List<String> profileFields = Arrays.asList(profile.getUrl(), profile.getFullName(), profile.getJobPosition(),
-                    profile.getDescription(), profile.getPhoto(), profile.getMail());
+            List<String> profileFields = Arrays.asList(
+                    profile.getUrl(),
+                    profile.getFullName(),
+                    profile.getJobPosition(),
+                    profile.getDescription(),
+                    profile.getPhoto(),
+                    profile.getMail());
 
             profileFields.forEach(v -> createCell(row, profileFields.indexOf(v), v));
         }

@@ -20,20 +20,20 @@ public class LawyersScraper {
 
     public Map<String, List<LawyerProfile>> getProfiles(WebDriver driver) {
         Map<String, List<LawyerProfile>> result = new HashMap<>();
+        ProfileParser parser = new ProfileParser();
 
         ScraperHelper.loadMainPage(driver);
         List<String> typeHeadingSelectors = buildTypeHeadingSelector();
-
         for (int count = 0; count < TYPE_SELECTORS.size(); count++) {
             ScraperHelper.loadStaffPage(driver);
             Map<String, List<LawyerProfile>> typeProfiles = parseProfilesByType(driver,
-                    TYPE_SELECTORS.get(count), typeHeadingSelectors.get(count));
+                    TYPE_SELECTORS.get(count), typeHeadingSelectors.get(count), parser);
             result.putAll(typeProfiles);
         }
         return result;
     }
 
-    private Map<String, List<LawyerProfile>> parseProfilesByType(WebDriver driver, String typeSelector, String typeHeadingSelector) {
+    private Map<String, List<LawyerProfile>> parseProfilesByType(WebDriver driver, String typeSelector, String typeHeadingSelector, ProfileParser parser) {
         Map<String, List<LawyerProfile>> result = new HashMap<>();
         String type = ParserHelper.getText(driver, typeHeadingSelector);
 
@@ -42,7 +42,6 @@ public class LawyersScraper {
                 .collect(Collectors.toList());
 
         List<LawyerProfile> profiles = ScraperHelper.createNewProfiles(profilesUrl);
-        ProfileParser parser = new ProfileParser();
         parser.fillProfileFields(driver, profiles);
         result.put(type, profiles);
         return result;
